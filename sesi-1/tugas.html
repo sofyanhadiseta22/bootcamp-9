@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Portofolio - Murni Table HTML</title>
+</head>
+<body>
+
+    <!-- Tabel Utama Pembungkus Seluruh Halaman -->
+    <table border="1" width="100%" cellpadding="10" cellspacing="0" align="center">
+        
+        <!-- ================= SECTION 1: MENU / NAVIGATION ================= -->
+        <tr>
+            <td>
+                <table border="0" width="100%" cellpadding="5" cellspacing="0">
+                    <tr>
+                        <td align="left" valign="middle">
+                            <strong>Brand</strong>
+                        </td>
+                        <td align="right" valign="middle">
+                            <a href="#header">Header</a> &nbsp;&nbsp;
+                            <a href="#biodata">Biodata</a> &nbsp;&nbsp;
+                            <a href="#portofolio">Portofolio</a>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <!-- ================= SECTION 2: HEADER (JUDUL KIRI, GAMBAR KANAN) ================= -->
+        <tr id="header">
+            <td>
+                <table border="0" width="100%" cellpadding="15" cellspacing="0">
+                    <tr>
+                        <!-- Kolom Kiri: Judul, Deskripsi, Tombol -->
+                        <td width="50%" valign="top" align="left">
+                            <h2>Selamat Datang di Website Saya</h2>
+                            <p>Ini adalah contoh header dengan dua kolom. Kolom kiri berisi teks seperti ini.</p>
+                            <br>
+                            <button type="button">Pelajari Lebih Lanjut</button>
+                        </td>
+                        
+                        <!-- Kolom Kanan: Gambar Placeholder 600 x 400 -->
+                        <td width="50%" align="center" valign="middle">
+                            <img src="image_64de312d.png" alt="Placeholder 600x400" width="100%" height="auto">
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <!-- ================= SECTION 3: BIODATA (ABOUT ME - 6 BOXES) ================= -->
+        <tr id="biodata">
+            <td align="center">
+                <h2>About Me</h2>
+                <p>A brief introduction about myself</p>
+                <br>
+                
+                <!-- Tabel 6 Box (2 Baris, 3 Kolom) -->
+                <table border="1" width="100%" cellpadding="15" cellspacing="5">
+                    <!-- Baris 1: Full Name, Education, Pekerjaan -->
+                    <tr>
+                        <td width="33%" align="center" valign="middle">
+                            Full Name
+                        </td>
+                        <td width="33%" align="center" valign="middle">
+                            Education
+                        </td>
+                        <td width="33%" align="center" valign="middle">
+                            Pekerjaan
+                        </td>
+                    </tr>
+                    
+                    <!-- Baris 2: Contact, Hobi, Alamat -->
+                    <tr>
+                        <td width="33%" align="center" valign="middle">
+                            Contact
+                        </td>
+                        <td width="33%" align="center" valign="middle">
+                            Hobi
+                        </td>
+                        <td width="33%" align="center" valign="middle">
+                            Alamat
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <!-- ================= SECTION 4: PORTOFOLIO (3 PROYEK) ================= -->
+        <tr id="portofolio">
+            <td align="center">
+                <h2>Portofolio</h2>
+                <br>
+                
+                <!-- Tabel Layout 3 Kolom untuk Proyek -->
+                <table border="0" width="100%" cellpadding="10" cellspacing="10">
+                    <tr>
+                        <!-- Box Proyek 1 -->
+                        <td width="33%" align="center" valign="top">
+                            <table border="1" width="100%" cellpadding="10" cellspacing="0">
+                                <tr>
+                                    <td align="center" valign="top">
+                                        <img src="https://placehold.co/350x200/e0e0e0/555555?text=350+%C3%97+200" alt="Proyek 1" width="100%">
+                                        <br><br>
+                                        <strong>Proyek 1</strong>
+                                        <p>Deskripsi proyek 1.</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+
+                        <!-- Box Proyek 2 -->
+                        <td width="33%" align="center" valign="top">
+                            <table border="1" width="100%" cellpadding="10" cellspacing="0">
+                                <tr>
+                                    <td align="center" valign="top">
+                                        <img src="https://placehold.co/350x200/e0e0e0/555555?text=350+%C3%97+200" alt="Proyek 2" width="100%">
+                                        <br><br>
+                                        <strong>Proyek 2</strong>
+                                        <p>Deskripsi proyek 2.</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+
+                        <!-- Box Proyek 3 -->
+                        <td width="33%" align="center" valign="top">
+                            <table border="1" width="100%" cellpadding="10" cellspacing="0">
+                                <tr>
+                                    <td align="center" valign="top">
+                                        <img src="https://placehold.co/350x200/e0e0e0/555555?text=350+%C3%97+200" alt="Proyek 3" width="100%">
+                                        <br><br>
+                                        <strong>Proyek 3</strong>
+                                        <p>Deskripsi proyek 3.</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+    </table>
+
+</body>
+</html>
