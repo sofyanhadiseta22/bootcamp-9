@@ -1,27 +1,473 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bootstrap demo</title>
-    <!-- Link external CSS stylesheet -->
+    <title>Sofyan Hadi Seta - Web Developer Portfolio</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Google Fonts (Poppins) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header>
-        <h1>Welcome to My Website</h1>
-    </header>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top py-3 shadow-sm">
+        <div class="container">
+            <!-- Brand Logo -->
+            <a class="navbar-brand fw-bold fs-4 d-flex align-items-center gap-2" href="#">
+                <span class="bg-warning text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 36px; height: 36px; font-size: 0.9rem;">FS</span>
+                <span class="tracking-wide">Sofyan<span class="text-orange">Hadi Seta</span></span>
+            </a>
 
-    <main>
-        <p>This is the main content area of your index page.</p>
-    </main>
+            <!-- Mobile Navbar Toggle Button -->
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-    <footer>
-        <p>&copy; 2026 My Website</p>
+            <!-- Navbar Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mx-lg-auto mb-2 mb-lg-0 text-center fw-medium gap-lg-3">
+                    <li class="nav-item"><a class="nav-link text-orange active" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About Me</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonials</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+
+                <!-- Action Button triggering Popup Modal -->
+                <div class="text-center text-lg-end mt-3 mt-lg-0">
+                    <button class="btn btn-orange px-4 shadow-sm" data-bs-toggle="modal" data-bs-target="#hireModal">
+                        <i class="bi bi-send-fill me-1"></i> Hire Me
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="py-5 bg-light-orange position-relative overflow-hidden">
+        <div class="container py-lg-4">
+            <div class="row align-items-center gy-5">
+                <!-- Hero Left Content -->
+                <div class="col-lg-6 text-center text-lg-start">
+                    <span class="badge bg-white text-orange shadow-sm px-3 py-2 rounded-pill fw-semibold mb-3">
+                        <i class="bi bi-hand-thumbs-up-fill me-1"></i> HI I AM
+                    </span>
+                    <h2 class="text-secondary fw-medium mb-1">Sofyan Hadi Seta</h2>
+                    <h1 class="display-4 fw-bold text-dark mb-3">
+                        Web <span class="text-orange">Developer</span>
+                    </h1>
+                    <p class="text-muted leading-relaxed mb-4 max-w-lg mx-auto mx-lg-0">
+                        Saya seorang pengembang web profesional yang berfokus pada pembuatan website responsif, modern, dan interaktif dengan pengalaman pengguna yang optimal.
+                    </p>
+                    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start gap-3">
+                        <button class="btn btn-orange btn-lg px-4 fs-6" data-bs-toggle="modal" data-bs-target="#hireModal">
+                            Hire Me
+                        </button>
+                        <button class="btn btn-outline-orange btn-lg px-4 fs-6" data-bs-toggle="modal" data-bs-target="#cvModal">
+                            <i class="bi bi-download me-1"></i> Download CV
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Hero Right Content (Image & Social Links) -->
+                <div class="col-lg-6 text-center">
+                    <div class="avatar-container mb-3">
+                        <img src="Gemini_Generated_Image_us6unwus6unwus6u (1).png" alt="Sofyan Hadi Seta Profile" class="avatar-img">
+                    </div>
+                    <!-- Social Media Links -->
+                    <div class="d-flex justify-content-center align-items-center gap-2 mt-2">
+                        <a href="#" class="social-link shadow-sm" title="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-link shadow-sm" title="Twitter"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="social-link shadow-sm" title="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-link shadow-sm" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="py-5 bg-white">
+        <div class="container py-lg-4">
+            <!-- Section Header -->
+            <div class="text-center max-w-2xl mx-auto mb-5">
+                <h2 class="fw-bold fs-1 position-relative d-inline-block">
+                    About <span class="text-orange">Me</span>
+                </h2>
+                <p class="text-muted mt-2">
+                    Berikut adalah data singkat mengenai latar belakang pendidikan, keahlian, dan informasi kontak saya.
+                </p>
+            </div>
+
+            <!-- Profile Info Grid -->
+            <div class="row g-4">
+                <!-- Full Name -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="info-card p-4 d-flex align-items-center gap-3">
+                        <div class="info-icon-box flex-shrink-0">
+                            <i class="bi bi-person-fill"></i>
+                        </div>
+                        <div>
+                            <span class="text-muted small text-uppercase fw-semibold">Full Name</span>
+                            <h6 class="fw-bold mb-0 mt-1">Sofyan Hadi Seta</h6>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="info-card p-4 d-flex align-items-center gap-3">
+                        <div class="info-icon-box flex-shrink-0">
+                            <i class="bi bi-mortarboard-fill"></i>
+                        </div>
+                        <div>
+                            <span class="text-muted small text-uppercase fw-semibold">Education</span>
+                            <h6 class="fw-bold mb-0 mt-1">Universitas Terbuka</h6>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pekerjaan -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="info-card p-4 d-flex align-items-center gap-3">
+                        <div class="info-icon-box flex-shrink-0">
+                            <i class="bi bi-briefcase-fill"></i>
+                        </div>
+                        <div>
+                            <span class="text-muted small text-uppercase fw-semibold">Pekerjaan</span>
+                            <h6 class="fw-bold mb-0 mt-1">Frontend Web Developer</h6>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="info-card p-4 d-flex align-items-center gap-3">
+                        <div class="info-icon-box flex-shrink-0">
+                            <i class="bi bi-envelope-fill"></i>
+                        </div>
+                        <div>
+                            <span class="text-muted small text-uppercase fw-semibold">Contact</span>
+                            <h6 class="fw-bold mb-0 mt-1">sofyanhadiseta22@gmail.com</h6>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hobi -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="info-card p-4 d-flex align-items-center gap-3">
+                        <div class="info-icon-box flex-shrink-0">
+                            <i class="bi bi-controller"></i>
+                        </div>
+                        <div>
+                            <span class="text-muted small text-uppercase fw-semibold">Hobi</span>
+                            <h6 class="fw-bold mb-0 mt-1">Membaca Buku, Coding, Traveling</h6>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alamat -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="info-card p-4 d-flex align-items-center gap-3">
+                        <div class="info-icon-box flex-shrink-0">
+                            <i class="bi bi-geo-alt-fill"></i>
+                        </div>
+                        <div>
+                            <span class="text-muted small text-uppercase fw-semibold">Alamat</span>
+                            <h6 class="fw-bold mb-0 mt-1">Jl. Mawar No. 123, Jakarta</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- My Projects Section -->
+    <section id="projects" class="py-5 bg-light">
+        <div class="container py-lg-4">
+            <!-- Section Title -->
+            <div class="text-center mb-4">
+                <h2 class="fw-bold fs-1">My <span class="text-orange">Projects</span></h2>
+                <p class="text-muted">Kumpulan karya dan proyek web yang pernah saya selesaikan.</p>
+            </div>
+
+            <!-- Portfolio Filter Buttons -->
+            <div class="d-flex flex-wrap justify-content-center gap-2 mb-5">
+                <button class="btn btn-outline-orange active px-3 py-2 text-sm" onclick="filterProjects('all', this)">All</button>
+                <button class="btn btn-outline-orange px-3 py-2 text-sm" onclick="filterProjects('uiux', this)">UI/UX</button>
+                <button class="btn btn-outline-orange px-3 py-2 text-sm" onclick="filterProjects('web', this)">Web Design</button>
+                <button class="btn btn-outline-orange px-3 py-2 text-sm" onclick="filterProjects('app', this)">App Design</button>
+                <button class="btn btn-outline-orange px-3 py-2 text-sm" onclick="filterProjects('graphic', this)">Graphic Design</button>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="row g-4" id="projectContainer">
+                <!-- Project Item 1 -->
+                <div class="col-md-6 col-lg-4 project-item web">
+                    <div class="project-card h-100">
+                        <div class="project-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=600&auto=format&fit=crop" alt="AirCalling Landing Page">
+                        </div>
+                        <div class="p-4">
+                            <span class="badge bg-light-orange text-orange mb-2">Web Design</span>
+                            <h5 class="fw-bold mb-2">AirCalling Landing Page</h5>
+                            <p class="text-muted small mb-3">Landing page modern untuk aplikasi panggilan suara dan video conference.</p>
+                            <button class="btn btn-sm btn-orange w-100" onclick="openProjectModal('AirCalling Landing Page', 'Design landing page interaktif dengan sistem komunikasi web real-time.', 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=600&auto=format&fit=crop')">
+                                Lihat Detail Modal
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Item 2 -->
+                <div class="col-md-6 col-lg-4 project-item web uiux">
+                    <div class="project-card h-100">
+                        <div class="project-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop" alt="Business Landing Page">
+                        </div>
+                        <div class="p-4">
+                            <span class="badge bg-light-orange text-orange mb-2">UI/UX & Web</span>
+                            <h5 class="fw-bold mb-2">Business Landing Page</h5>
+                            <p class="text-muted small mb-3">Website profil perusahaan bisnis terpadu dengan integrasi analitik.</p>
+                            <button class="btn btn-sm btn-orange w-100" onclick="openProjectModal('Business Landing Page', 'Platform profil korporat dengan layout responsif Bootstrap 5.', 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop')">
+                                Lihat Detail Modal
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Item 3 -->
+                <div class="col-md-6 col-lg-4 project-item app">
+                    <div class="project-card h-100">
+                        <div class="project-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?q=80&w=600&auto=format&fit=crop" alt="Ecom Web Page Design">
+                        </div>
+                        <div class="p-4">
+                            <span class="badge bg-light-orange text-orange mb-2">App Design</span>
+                            <h5 class="fw-bold mb-2">Ecom Web Page Design</h5>
+                            <p class="text-muted small mb-3">Platform e-commerce belanja online dengan sistem keranjang & payment gateway.</p>
+                            <button class="btn btn-sm btn-orange w-100" onclick="openProjectModal('Ecom Web Page Design', 'Desain marketplace modern yang optimal di tampilan seluler.', 'https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?q=80&w=600&auto=format&fit=crop')">
+                                Lihat Detail Modal
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GitHub Task Card Guide Section -->
+    <section class="py-5 bg-white">
+        <div class="container">
+            <div class="bg-dark text-white rounded-4 p-4 p-lg-5 shadow">
+                <div class="row align-items-center">
+                    <div class="col-lg-8">
+                        <span class="badge bg-warning text-dark mb-2 fw-bold">Tugas No. 4</span>
+                        <h3 class="fw-bold text-white mb-2"><i class="bi bi-github me-2"></i>Panduan Simpan ke GitHub</h3>
+                        <p class="text-light opacity-75 mb-0">
+                            Berikut langkah praktis untuk mengunggah berkas portofolio Bootstrap ini ke repository GitHub Anda:
+                        </p>
+                    </div>
+                    <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+                        <button class="btn btn-warning fw-bold px-4 py-2" data-bs-toggle="modal" data-bs-target="#githubModal">
+                            <i class="bi bi-terminal me-1"></i> Lihat Perintah Git
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-light py-4 border-top">
+        <div class="container text-center">
+            <p class="text-muted mb-0">&copy; 2026 <strong class="text-dark"> Sofyan Hadi Seta </strong>. Built with Bootstrap 5. All rights reserved.</p>
+        </div>
     </footer>
 
-    <!-- Link external JavaScript file -->
-    <script src="script.js"></script>
+    <!-- MODAL 1: Hire Me Modal -->
+    <div class="modal fade" id="hireModal" tabindex="-1" aria-labelledby="hireModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-3">
+                <div class="modal-header border-0">
+                    <h5 class="modal-header-title fw-bold fs-4" id="hireModalLabel">
+                        <i class="bi bi-envelope-open-fill text-orange me-2"></i>Hubungi Saya
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted small mb-4">Silakan isi formulir di bawah ini untuk memulai proyek bersama Sofyan Hadi Seta.</p>
+                    <form id="contactForm" onsubmit="handleFormSubmit(event)">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold text-dark">Nama Lengkap</label>
+                            <input type="text" class="form-control rounded-3" placeholder="Masukkan nama Anda" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold text-dark">Email</label>
+                            <input type="email" class="form-control rounded-3" placeholder="nama@email.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold text-dark">Pesan / Proyek</label>
+                            <textarea class="form-control rounded-3" rows="4" placeholder="Jelaskan kebutuhan proyek Anda..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-orange w-100 py-2 fw-semibold">Kirim Pesan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: CV Download Modal -->
+    <div class="modal fade" id="cvModal" tabindex="-1" aria-labelledby="cvModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-3 text-center">
+                <div class="modal-header border-0 justify-content-end">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body py-4">
+                    <div class="display-1 text-orange mb-3">
+                        <i class="bi bi-file-earmark-pdf-fill"></i>
+                    </div>
+                    <h4 class="fw-bold">Download Curriculum Vitae</h4>
+                    <p class="text-muted">Unduh resume lengkap sofyan Hadi Seta dalam format PDF.</p>
+                    <button class="btn btn-orange px-5 py-2 mt-2" onclick="alertNotification('Berhasil mengunduh CV Sofyan Hadi Seta!')">
+                        <i class="bi bi-download me-2"></i> Download PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 3: Dynamic Project Detail Modal -->
+    <div class="modal fade" id="projectDetailModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="fw-bold text-dark mb-0" id="modalProjectTitle">Project Title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img id="modalProjectImage" src="" class="img-fluid rounded-3 mb-3 w-100 style-cover" style="max-height: 380px; object-fit: cover;" alt="Project Detail">
+                    <p id="modalProjectDesc" class="text-muted leading-relaxed">Project detail description will appear here...</p>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-orange px-4" onclick="alertNotification('Membuka Demo Proyek...')">Demo Live</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 4: GitHub Commands Guide Modal -->
+    <div class="modal fade" id="githubModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="fw-bold mb-0"><i class="bi bi-git me-2"></i>Langkah Push ke GitHub</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body bg-light">
+                    <ol class="small lh-lg mb-0 text-dark">
+                        <li>Buka Terminal / Command Prompt di folder projek.</li>
+                        <li>Inisialisasi Git repository:
+                            <code class="d-block bg-white p-2 rounded border my-1">git init</code>
+                        </li>
+                        <li>Tambahkan berkas ini:
+                            <code class="d-block bg-white p-2 rounded border my-1">git add index.html</code>
+                        </li>
+                        <li>Lakukan Commit:
+                            <code class="d-block bg-white p-2 rounded border my-1">git commit -m "Tugas 1-4 Bootstrap Portfolio"</code>
+                        </li>
+                        <li>Hubungkan ke Repository GitHub Anda:
+                            <code class="d-block bg-white p-2 rounded border my-1">git remote add origin https://github.com/USERNAME/REPOSITORY.git</code>
+                        </li>
+                        <li>Unggah berkas:
+                            <code class="d-block bg-white p-2 rounded border my-1">git push -u origin main</code>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Box for Modal Responses -->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1100">
+        <div id="actionToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body" id="toastMessage">
+                    Pesan berhasil dikirim!
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        
+        // 1. Dynamic Project Modal Function
+        function openProjectModal(title, description, imageSrc) {
+            document.getElementById('modalProjectTitle').innerText = title;
+            document.getElementById('modalProjectDesc').innerText = description;
+            document.getElementById('modalProjectImage').src = imageSrc;
+
+            var projectModal = new bootstrap.Modal(document.getElementById('projectDetailModal'));
+            projectModal.show();
+        }
+
+        // 2. Form submission handler for Modal Contact Form
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            // Close Hire Modal
+            var hireModalEl = document.getElementById('hireModal');
+            var modalInstance = bootstrap.Modal.getInstance(hireModalEl);
+            if(modalInstance) {
+                modalInstance.hide();
+            }
+
+            // Reset Form
+            document.getElementById('contactForm').reset();
+
+            // Show Toast Alert
+            alertNotification("Pesan Anda berhasil terkirim kepada Sofyan Hadi Seta!");
+        }
+
+        // 3. Custom Toast Notification System
+        function alertNotification(message) {
+            document.getElementById('toastMessage').innerText = message;
+            var toastEl = document.getElementById('actionToast');
+            var toast = new bootstrap.Toast(toastEl);
+            toast.show();
+        }
+
+        // 4. Project Category Filter Function
+        function filterProjects(category, btnElement) {
+            // Update active state on filter buttons
+            var buttons = btnElement.parentElement.querySelectorAll('.btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            // Show/Hide project cards based on category
+            var projects = document.querySelectorAll('.project-item');
+            projects.forEach(project => {
+                if (category === 'all' || project.classList.contains(category)) {
+                    project.style.display = 'block';
+                } else {
+                    project.style.display = 'none';
+                }
+            });
+        }
+    </script>
 </body>
 </html>

@@ -1,0 +1,172 @@
+<style>
+:root {
+    --primary-orange: #fd7e14;
+    --primary-orange-hover: #e06b00;
+    --bg-light-orange: #fff4e6;
+    --dark-text: #212529;
+    --muted-text: #6c757d;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--dark-text);
+    scroll-behavior: smooth;
+    background-color: #fcfcfc;
+}
+
+/* Custom Theme Overrides */
+.btn-orange {
+    background-color: var(--primary-orange);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    padding: 10px 24px;
+    transition: all 0.3s ease;
+}
+
+.btn-orange:hover {
+    background-color: var(--primary-orange-hover);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(253, 126, 20, 0.3);
+}
+
+.btn-outline-orange {
+    border: 2px solid var(--primary-orange);
+    color: var(--primary-orange);
+    border-radius: 8px;
+    font-weight: 500;
+    padding: 8px 22px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-orange:hover, .btn-outline-orange.active {
+    background-color: var(--primary-orange);
+    color: #ffffff;
+}
+
+.text-orange {
+    color: var(--primary-orange) !important;
+}
+
+.bg-light-orange {
+    background-color: var(--bg-light-orange);
+}
+
+/* Hero Avatar Image Circle */
+.avatar-container {
+    position: relative;
+    display: inline-block;
+}
+
+.avatar-img {
+    width: 280px;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 8px solid #ffffff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 992px) {
+    .avatar-img {
+        width: 340px;
+        height: 340px;
+    }
+}
+
+/* Cards and Info Grid */
+.info-card {
+    border: none;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-50px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.info-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background-color: var(--bg-light-orange);
+    color: var(--primary-orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+/* Social Icons */
+.social-link {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f8f9fa;
+    color: var(--dark-text);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin: 0 4px;
+}
+
+.social-link:hover {
+    background-color: var(--primary-orange);
+    color: #ffffff;
+    transform: translateY(-3px);
+}
+
+/* Portfolio Project Cards */
+.project-card {
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    background: #ffffff;
+}
+
+.project-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.project-img-wrapper {
+    position: relative;
+    overflow: hidden;
+    height: 220px;
+    background-color: #f1f3f5;
+}
+
+.project-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.project-card:hover .project-img-wrapper img {
+    transform: scale(1.05);
+}
+
+/* Modal styling */
+.modal-content {
+    border-radius: 16px;
+    border: none;
+}
+
+.modal-header {
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.modal-footer {
+    border-top: 1px solid #f1f1f1;
+}
+</style>
