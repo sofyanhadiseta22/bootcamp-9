@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toko Online - Katalog Produk Lengkap</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-banner {
+            background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(13, 110, 253, 0.15);
+        }
+
+        .card-product {
+            border: none;
+            border-radius: 12px;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            height: 100%;
+            overflow: hidden;
+            background: #ffffff;
+        }
+
+        .card-product:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .product-img-container {
+            position: relative;
+            padding-top: 75%; /* 4:3 Aspect Ratio */
+            overflow: hidden;
+            background-color: #f1f3f5;
+        }
+
+        .product-img-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .card-product:hover .product-img-container img {
+            transform: scale(1.05);
+        }
+
+        .badge-category {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 2;
+            font-weight: 600;
+            font-size: 0.75rem;
+            padding: 0.35em 0.75em;
+            border-radius: 20px;
+            backdrop-filter: blur(4px);
+        }
+
+        .filter-card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            position: sticky;
+            top: 80px;
+        }
+
+        .price-text {
+            color: #0d6efd;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .cart-badge {
+            font-size: 0.7rem;
+            padding: 0.25em 0.5em;
+        }
+
+        .toast-container {
+            z-index: 1090;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm py-3">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                <i class="bi bi-bag-heart-fill text-primary fs-4"></i>
+                <span>TokoKita</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <div class="ms-auto d-flex align-items-center gap-3 mt-3 mt-lg-0">
+                    <button class="btn btn-outline-light position-relative d-flex align-items-center gap-2 rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#cartModal">
+                        <i class="bi bi-cart3 fs-5"></i>
+                        <span>Keranjang</span>
+                        <span id="cartCountBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-badge">
+                            0
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-4">
+        <!-- Hero Banner -->
+        <div class="hero-banner d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+            <div>
+                <h1 class="fw-bold mb-2">Jelajahi Produk Pilihan Terbaik</h1>
+                <p class="mb-0 opacity-75">Temukan lebih dari 50 produk berkulitas dari berbagai kategori favorit Anda.</p>
+            </div>
+            <a href="#katalog" class="btn btn-light btn-lg px-4 fw-semibold text-primary rounded-pill shadow-sm text-nowrap">
+                Mulai Belanja <i class="bi bi-arrow-down-short ms-1"></i>
+            </a>
+        </div>
+
+        <div class="row g-4" id="katalog">
+            <!-- Sidebar Filter -->
+            <div class="col-lg-3">
+                <div class="card filter-card p-3">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="fw-bold mb-0"><i class="bi bi-funnel me-2"></i>Filter Produk</h5>
+                        <button id="btnResetFilter" class="btn btn-link text-decoration-none p-0 text-muted fs-7">
+                            <i class="bi bi-arrow-counterclockwise"></i> Reset
+                        </button>
+                    </div>
+
+                    <!-- Filter Nama Produk -->
+                    <div class="mb-3">
+                        <label for="searchKey" class="form-label fw-semibold small text-uppercase text-muted">Cari Nama Produk</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white"><i class="bi bi-search text-muted"></i></span>
+                            <input type="text" id="searchKey" class="form-control border-start-0" placeholder="Ketik nama produk...">
+                        </div>
+                    </div>
+
+                    <hr class="my-3 text-muted opacity-25">
+
+                    <!-- Filter Kategori -->
+                    <div class="mb-3">
+                        <label for="categoryFilter" class="form-label fw-semibold small text-uppercase text-muted">Kategori</label>
+                        <select id="categoryFilter" class="form-select">
+                            <option value="ALL">Semua Kategori</option>
+                            <option value="Elektronik">Elektronik</option>
+                            <option value="Pakaian">Pakaian</option>
+                            <option value="Sepatu">Sepatu</option>
+                            <option value="Aksesoris">Aksesoris</option>
+                            <option value="Rumah Tangga">Rumah Tangga</option>
+                        </select>
+                    </div>
+
+                    <hr class="my-3 text-muted opacity-25">
+
+                    <!-- Filter Harga Maksimal -->
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <label for="priceRange" class="form-label fw-semibold small text-uppercase text-muted mb-0">Batas Harga Maks</label>
+                            <span id="priceRangeValue" class="badge bg-primary-subtle text-primary fw-bold">Rp 10.000.000</span>
+                        </div>
+                        <input type="range" class="form-range" id="priceRange" min="50000" max="10000000" step="50000" value="10000000">
+                        <div class="d-flex justify-content-between small text-muted">
+                            <span>Rp 50rb</span>
+                            <span>Rp 10jt</span>
+                        </div>
+                    </div>
+
+                    <hr class="my-3 text-muted opacity-25">
+
+                    <!-- Sorting -->
+                    <div>
+                        <label for="sortSelect" class="form-label fw-semibold small text-uppercase text-muted">Urutkan</label>
+                        <select id="sortSelect" class="form-select">
+                            <option value="default">Default</option>
+                            <option value="price-asc">Harga: Terendah ke Tertinggi</option>
+                            <option value="price-desc">Harga: Tertinggi ke Terendah</option>
+                            <option value="name-asc">Nama: A - Z</option>
+                            <option value="name-desc">Nama: Z - A</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content Grid -->
+            <div class="col-lg-9">
+                <!-- Status Bar Hasil Filter -->
+                <div class="d-flex justify-content-between align-items-center mb-3 bg-white p-3 rounded-3 shadow-sm">
+                    <span id="productResultCount" class="fw-semibold text-muted">
+                        Menampilkan <strong id="countNum" class="text-dark">0</strong> dari 50 produk
+                    </span>
+                    <span id="activeFilterBadge" class="badge bg-secondary opacity-75">Semua Produk</span>
+                </div>
+
+                <!-- Container Grid Produk -->
+                <div class="row g-3" id="productGrid">
+                    <!-- Produk akan dirender lewat JavaScript di sini -->
+                </div>
+
+                <!-- Empty State jika tidak ketemu -->
+                <div id="emptyState" class="text-center py-5 d-none">
+                    <i class="bi bi-search-heart text-muted display-1"></i>
+                    <h4 class="mt-3 fw-bold">Produk Tidak Ditemukan</h4>
+                    <p class="text-muted">Coba ubah kata kunci pencarian atau sesuaikan filter Anda.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Detail Produk -->
+    <div class="modal fade" id="productDetailModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold" id="detailModalTitle">Detail Produk</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="row g-4 align-items-center">
+                        <div class="col-md-6 text-center">
+                            <img id="detailModalImage" src="" class="img-fluid rounded-3 shadow-sm" alt="Gambar Produk" style="max-height: 300px; object-fit: cover;">
+                        </div>
+                        <div class="col-md-6">
+                            <span id="detailModalCategory" class="badge bg-primary mb-2">Kategori</span>
+                            <h3 id="detailModalName" class="fw-bold mb-2">Nama Produk</h3>
+                            <div id="detailModalPrice" class="price-text fs-3 mb-3">Rp 0</div>
+                            <p id="detailModalDescription" class="text-muted">Deskripsi lengkap produk akan muncul di sini.</p>
+                            <div class="mt-4 d-grid gap-2">
+                                <button id="btnAddToCartModal" class="btn btn-primary btn-lg rounded-pill fw-semibold">
+                                    <i class="bi bi-cart-plus me-2"></i> Tambah ke Keranjang
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Keranjang Belanja -->
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header border-bottom">
+                    <h5 class="modal-title fw-bold"><i class="bi bi-cart3 me-2"></i>Keranjang Belanja</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-3">
+                    <div id="cartItemsList" class="d-flex flex-column gap-3">
+                        <!-- Keranjang belanja di-render di JS -->
+                    </div>
+                    <div id="emptyCartMessage" class="text-center py-4 text-muted">
+                        <i class="bi bi-cart-x fs-1 d-block mb-2"></i>
+                        Keranjang Anda masih kosong.
+                    </div>
+                </div>
+                <div class="modal-footer border-top d-flex justify-content-between">
+                    <div>
+                        <span class="text-muted small d-block">Total Pembayaran</span>
+                        <strong id="cartTotalPrice" class="fs-5 text-primary">Rp 0</strong>
+                    </div>
+                    <button class="btn btn-success fw-semibold rounded-pill px-4" id="btnCheckout" disabled>
+                        Checkout <i class="bi bi-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="cartToast" class="toast align-items-center text-white bg-success border-0 shadow" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body d-flex align-items-center gap-2">
+                    <i class="bi bi-check-circle-fill fs-5"></i>
+                    <span id="toastMessage">Produk berhasil ditambahkan ke keranjang!</span>
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Data 50 Produk
+        const productsData = [
+            // Elektronik (10)
+            { id: 1, name: "Smartphone Galaxy S23 Ultra", price: 9800000, category: "Elektronik", image: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=500&q=80", description: "Layar AMOLED 120Hz memukau dengan kamera super presisi 200MP untuk fotografi profesional." },
+            { id: 2, name: "Laptop ProBook 14 M2", price: 8500000, category: "Elektronik", image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500&q=80", description: "Laptop ultra-tipis hemat daya dengan performa kencang untuk komputasi harian dan bisnis." },
+            { id: 3, name: "Headphone Noise Cancelling BT", price: 1250000, category: "Elektronik", image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80", description: "Fitur peredam kebisingan aktif dengan bass mendalam dan daya tahan baterai hingga 30 jam." },
+            { id: 4, name: "Smartwatch Sport Edition", price: 890000, category: "Elektronik", image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&q=80", description: "Pantau detak jantung, pola tidur, dan langkah kaki Anda secara real-time dengan layar HD." },
+            { id: 5, name: "Tablet Pad Pro 11-inch", price: 6200000, category: "Elektronik", image: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=500&q=80", description: "Layar cerah dengan dukungan stylus pen untuk kreasi desain grafis dan produktivitas." },
+            { id: 6, name: "Speaker Bluetooth Portable Boom", price: 450000, category: "Elektronik", image: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500&q=80", description: "Suara stereo kuat dan tahan air IPX7, siap menemani aktivitas outdoor Anda." },
+            { id: 7, name: "Kamera Mirrorless 4K Vlogging", price: 7900000, category: "Elektronik", image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=500&q=80", description: "Rekaman video 4K jernih dengan layar putar khusus konten kreator dan vlogger." },
+            { id: 8, name: "Monitor Gaming 165Hz Curved", price: 3100000, category: "Elektronik", image: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=500&q=80", description: "Layar lengkung imersif dengan refresh rate 165Hz dan response time 1ms." },
+            { id: 9, name: "Mouse Gaming RGB Wireless", price: 350000, category: "Elektronik", image: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=500&q=80", description: "Sensor presisi tinggi hingga 16.000 DPI dengan lampu RGB yang dapat disesuaikan." },
+            { id: 10, name: "Keyboard Mekanik RGB Tactile", price: 580000, category: "Elektronik", image: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500&q=80", description: "Tombol mekanik empuk yang responsif untuk mengetik nyaman dan gaming intensif." },
+
+            // Pakaian (10)
+            { id: 11, name: "Jaket Denim Vintage Unisex", price: 320000, category: "Pakaian", image: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=500&q=80", description: "Jaket bahan jeans tebal berkualitas tinggi dengan potongan kasual kekinian." },
+            { id: 12, name: "Kaos Polos Cotton Combed 30s", price: 75000, category: "Pakaian", image: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500&q=80", description: "Kaos polos lembut, adem, dan menyerap keringat dengan baik untuk harian." },
+            { id: 13, name: "Kemeja Flanel Kotak-Kotak", price: 185000, category: "Pakaian", image: "https://images.unsplash.com/photo-1598032895397-b9472444bf93?w=500&q=80", description: "Kemeja flanel katun halus bermotif klasik yang cocok untuk acara santai maupun formal." },
+            { id: 14, name: "Sweater Hoodie Oversize Casual", price: 210000, category: "Pakaian", image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500&q=80", description: "Hoodie fleece lembut dan hangat dengan potongan oversize yang nyaman." },
+            { id: 15, name: "Celana Chino Slim Fit Premium", price: 245000, category: "Pakaian", image: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=500&q=80", description: "Celana chino stretch elastis yang nyaman dipakai bergerak sepanjang hari." },
+            { id: 16, name: "Gaun Casual Summer Floral", price: 290000, category: "Pakaian", image: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=500&q=80", description: "Dress wanita bermotif bunga anggun dengan bahan katun ringan untuk musim panas." },
+            { id: 17, name: "Jaket Bomber Windproof Warm", price: 380000, category: "Pakaian", image: "https://images.unsplash.com/photo-1548883354-7622d03aca27?w=500&q=80", description: "Jaket tahan angin bernuansa sporty dengan lapisan dalam yang nyaman." },
+            { id: 18, name: "Celana Jeans Slim Leg Dark Blue", price: 299000, category: "Pakaian", image: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500&q=80", description: "Celana denim klasik serbaguna yang tahan lama dan stylish." },
+            { id: 19, name: "Blouse Wanita Lengan Panjang", price: 165000, category: "Pakaian", image: "https://images.unsplash.com/photo-1584273143981-41c073dfe8f8?w=500&q=80", description: "Atasan blouse elegan cocok dikombinasikan dengan celana maupun rok." },
+            { id: 20, name: "Rompi Vest Rajut Knitwear", price: 140000, category: "Pakaian", image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=500&q=80", description: "Rompi rajut bergaya Korean style yang fashionable untuk dipadupadankan." },
+
+            // Sepatu (10)
+            { id: 21, name: "Sepatu Sneakers Running Light", price: 420000, category: "Sepatu", image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80", description: "Sneakers lari sangat ringan dengan bantalan empuk meredam benturan." },
+            { id: 22, name: "Sepatu Pantofel Kulit Asli", price: 650000, category: "Sepatu", image: "https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?w=500&q=80", description: "Sepatu formal pria berbahan kulit asli dengan jahitan rapi dan elegan." },
+            { id: 23, name: "Sepatu High Heels Elegant", price: 380000, category: "Sepatu", image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=500&q=80", description: "Sepatu hak tinggi wanita dengan desain mewah untuk pesta dan acara formal." },
+            { id: 24, name: "Sepatu Slip-On Canvas Casual", price: 195000, category: "Sepatu", image: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=500&q=80", description: "Sepatu tanpa tali praktis dipakai harian dengan sol karet anti-selip." },
+            { id: 25, name: "Sepatu Boot Outdoor Adventure", price: 780000, category: "Sepatu", image: "https://images.unsplash.com/photo-1520639888713-7851133b1ed0?w=500&q=80", description: "Sepatu outdoor kokoh untuk hiking dan medan berat dengan grip kuat." },
+            { id: 26, name: "Sandal Gunung Tough Grip", price: 160000, category: "Sepatu", image: "https://images.unsplash.com/photo-1603808033192-082d6919d3e1?w=500&q=80", description: "Sandal outdoor bertali kuat yang cocok untuk aktivitas air maupun mendaki." },
+            { id: 27, name: "Sepatu Basket High Top", price: 890000, category: "Sepatu", image: "https://images.unsplash.com/photo-1552346154-21d32810aba3?w=500&q=80", description: "Desain tinggi melindung pergelangan kaki dengan cengkraman maksimal di lapangan." },
+            { id: 28, name: "Sepatu Loafers Suede Casual", price: 340000, category: "Sepatu", image: "https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=500&q=80", description: "Bahan suede sintetis bertekstur lembut untuk tampilan semi-formal." },
+            { id: 29, name: "Sneakers Retro White Classic", price: 290000, category: "Sepatu", image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=500&q=80", description: "Sepatu kets putih klasik yang tidak pernah ketinggalan zaman." },
+            { id: 30, name: "Sepatu Futsal Indoor Grip", price: 310000, category: "Sepatu", image: "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?w=500&q=80", description: "Sol karet non-marking khusus lapangan futsal sintetis dan semen." },
+
+            // Aksesoris (10)
+            { id: 31, name: "Kacamata Hitam UV Protection", price: 135000, category: "Aksesoris", image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=500&q=80", description: "Lensa polarized menolak sinar UV400 untuk kenyamanan mata di luar ruangan." },
+            { id: 32, name: "Jam Tangan Pria Chronograph", price: 540000, category: "Aksesoris", image: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=500&q=80", description: "Tali kulit asli dengan fitur fitur stopwatch digital dan tahan air 30m." },
+            { id: 33, name: "Ransel Backpack Laptop 15.6\"", price: 275000, category: "Aksesoris", image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&q=80", description: "Tas ransel berkapasitas besar lengkap kompartemen khusus laptop dan USB charger." },
+            { id: 34, name: "Dompet Kulit Asli Lipat Dua", price: 160000, category: "Aksesoris", image: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=500&q=80", description: "Dompet kulit sapi asli dengan banyak slot kartu dan tempat penyimpanan uang." },
+            { id: 35, name: "Topi Baseball Adjustable Canvas", price: 65000, category: "Aksesoris", image: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500&q=80", description: "Topi bergaya kasual dengan gesper pengatur ukuran di bagian belakang." },
+            { id: 36, name: "Ikat Pinggang Kulit Automatic Buckle", price: 120000, category: "Aksesoris", image: "https://images.unsplash.com/photo-1614252369475-531eba835eb1?w=500&q=80", description: "Gesper otomatis praktis tanpa lubang yang terlihat sangat elegan." },
+            { id: 37, name: "Slingbag Tas Selempang Mini", price: 110000, category: "Aksesoris", image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=500&q=80", description: "Tas selempang kecil serbaguna untuk menyimpan ponsel, kunci, dan dompet." },
+            { id: 38, name: "Gelang Titanium Minimalis", price: 85000, category: "Aksesoris", image: "https://images.unsplash.com/photo-1611591475179-62cd34eb9030?w=500&q=80", description: "Bahan anti karat dan tidak berubah warna meski terkena air." },
+            { id: 39, name: "Kalung Liontin Perak Sterling", price: 230000, category: "Aksesoris", image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500&q=80", description: "Aksesoris leher elegan dengan kilau perak murni berkilauan." },
+            { id: 40, name: "Payung Lipat Otomatis Anti UV", price: 95000, category: "Aksesoris", image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500&q=80", description: "Payung lipat praktis berbahan lapis vinil hitam penahan sinar matahari & hujan." },
+
+            // Rumah Tangga (10)
+            { id: 41, name: "Blender Juicer Portable Electric", price: 210000, category: "Rumah Tangga", image: "https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=500&q=80", description: "Membuat jus sehat instan kapan saja dan di mana saja dengan sistem rechargeable USB." },
+            { id: 42, name: "Air Fryer Digital 3.5 Liter", price: 720000, category: "Rumah Tangga", image: "https://images.unsplash.com/photo-1585515320310-259814833e62?w=500&q=80", description: "Mengoreng renyah tanpa minyak tambahan untuk pola hidup sehat." },
+            { id: 43, name: "Cangkir Tumbler Thermos Stainless", price: 125000, category: "Rumah Tangga", image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=500&q=80", description: "Menjaga suhu minuman panas atau dingin hingga 12 jam." },
+            { id: 44, name: "Lampu Meja Belajar LED Dimmer", price: 145000, category: "Rumah Tangga", image: "https://images.unsplash.com/photo-1534073828943-f801091bb18c?w=500&q=80", description: "Tingkat kecerahan dapat diatur agar mata tidak mudah lelah saat membaca." },
+            { id: 45, name: "Diffuser Aromatherapy Humidifier", price: 175000, category: "Rumah Tangga", image: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=500&q=80", description: "Melembabkan udara ruangan sambil memberikan aroma esensial yang menenangkan." },
+            { id: 46, name: "Teflon Frypan Anti Lengket 24cm", price: 130000, category: "Rumah Tangga", image: "https://images.unsplash.com/photo-1583778176476-4a8b02a64c01?w=500&q=80", description: "Wajan anti lengket berlapis granit ramah lingkungan dan mudah dibersihkan." },
+            { id: 47, name: "Sapu & Pengki Set Ergonomis", price: 85000, category: "Rumah Tangga", image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=500&q=80", description: "Set alat pembersih lantai praktis dengan sisir pembersih rambut di pengki." },
+            { id: 48, name: "Timbangan Badan Digital Precision", price: 99000, category: "Rumah Tangga", image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=500&q=80", description: "Sensitivitas tinggi dengan kaca tempered tahan beban berat." },
+            { id: 49, name: "Kotak Penyimpanan Organiser Set", price: 115000, category: "Rumah Tangga", image: "https://images.unsplash.com/photo-1591129841119-c48cc46412d7?w=500&q=80", description: "Membuat pakaian dan barang-barang di lemari tersusun rapi." },
+            { id: 50, name: "Sprei Katun Lembut Bedcover 180x200", price: 285000, category: "Rumah Tangga", image: "https://images.unsplash.com/photo-1616627547584-bf28cee262db?w=500&q=80", description: "Bahan adem, tidak berbulu, dan nyaman untuk tidur lelap di malam hari." }
+        ];
+
+        let cart = [];
+        let selectedProductForModal = null;
+
+        // Element Selectors
+        const productGrid = document.getElementById('productGrid');
+        const emptyState = document.getElementById('emptyState');
+        const searchInput = document.getElementById('searchKey');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const priceRange = document.getElementById('priceRange');
+        const priceRangeValue = document.getElementById('priceRangeValue');
+        const sortSelect = document.getElementById('sortSelect');
+        const btnResetFilter = document.getElementById('btnResetFilter');
+        const countNum = document.getElementById('countNum');
+        const activeFilterBadge = document.getElementById('activeFilterBadge');
+        const cartCountBadge = document.getElementById('cartCountBadge');
+        const cartItemsList = document.getElementById('cartItemsList');
+        const emptyCartMessage = document.getElementById('emptyCartMessage');
+        const cartTotalPrice = document.getElementById('cartTotalPrice');
+        const btnCheckout = document.getElementById('btnCheckout');
+
+        // Helper Format Mata Uang Rupiah
+        function formatRupiah(number) {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                maximumFractionDigits: 0
+            }).format(number);
+        }
+
+        function getCategoryBadgeColor(category) {
+            switch(category) {
+                case 'Elektronik': return 'bg-primary text-white';
+                case 'Pakaian': return 'bg-success text-white';
+                case 'Sepatu': return 'bg-warning text-dark';
+                case 'Aksesoris': return 'bg-info text-dark';
+                case 'Rumah Tangga': return 'bg-danger text-white';
+                default: return 'bg-secondary text-white';
+            }
+        }
+
+        // Fungsi Utama Filter & Render Produk
+        function filterAndRenderProducts() {
+            const keyword = searchInput.value.toLowerCase().trim();
+            const category = categoryFilter.value;
+            const maxPrice = parseInt(priceRange.value, 10);
+            const sortMode = sortSelect.value;
+
+            // 1. Filter data array
+            let filtered = productsData.filter(item => {
+                const matchesKeyword = item.name.toLowerCase().includes(keyword) || item.description.toLowerCase().includes(keyword);
+                const matchesCategory = (category === 'ALL') || (item.category === category);
+                const matchesPrice = item.price <= maxPrice;
+
+                return matchesKeyword && matchesCategory && matchesPrice;
+            });
+
+            // 2. Sorting data
+            if (sortMode === 'price-asc') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (sortMode === 'price-desc') {
+                filtered.sort((a, b) => b.price - a.price);
+            } else if (sortMode === 'name-asc') {
+                filtered.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (sortMode === 'name-desc') {
+                filtered.sort((a, b) => b.name.localeCompare(a.name));
+            }
+
+            // Update UI Ringkasan Filter
+            countNum.innerText = filtered.length;
+            priceRangeValue.innerText = formatRupiah(maxPrice);
+            
+            if (category !== 'ALL') {
+                activeFilterBadge.innerText = `Kategori: ${category}`;
+                activeFilterBadge.classList.remove('d-none');
+            } else {
+                activeFilterBadge.innerText = 'Semua Kategori';
+            }
+
+            // Render ke HTML (Looping array)
+            productGrid.innerHTML = '';
+
+            if (filtered.length === 0) {
+                emptyState.classList.remove('d-none');
+            } else {
+                emptyState.classList.add('d-none');
+
+                filtered.forEach(product => {
+                    const badgeClass = getCategoryBadgeColor(product.category);
+                    const cardCol = document.createElement('div');
+                    cardCol.className = 'col-6 col-md-4 col-xl-3 d-flex align-items-stretch';
+                    
+                    cardCol.innerHTML = `
+                        <div class="card card-product w-100 shadow-sm d-flex flex-column">
+                            <div class="product-img-container">
+                                <span class="badge badge-category ${badgeClass}">${product.category}</span>
+                                <img src="${product.image}" alt="${product.name}" onerror="this.src='https://placehold.co/400x300/e2e8f0/1e293b?text=Gambar+Produk'">
+                            </div>
+                            <div class="card-body p-3 d-flex flex-column justify-content-between flex-grow-1">
+                                <div>
+                                    <h6 class="card-title fw-bold text-truncate-2 mb-1" style="min-height: 2.5rem;" title="${product.name}">${product.name}</h6>
+                                    <p class="card-text text-muted small text-truncate-2 mb-2" style="font-size: 0.8rem;">${product.description}</p>
+                                </div>
+                                <div class="mt-2">
+                                    <div class="price-text mb-2">${formatRupiah(product.price)}</div>
+                                    <div class="d-grid gap-1">
+                                        <button class="btn btn-primary btn-sm rounded-pill fw-semibold" onclick="addToCart(${product.id})">
+                                            <i class="bi bi-cart-plus me-1"></i> Beli
+                                        </button>
+                                        <button class="btn btn-outline-secondary btn-sm rounded-pill" onclick="openDetailModal(${product.id})">
+                                            Detail
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    productGrid.appendChild(cardCol);
+                });
+            }
+        }
+
+        // Buka Detail Modal Produk
+        function openDetailModal(id) {
+            const product = productsData.find(p => p.id === id);
+            if (!product) return;
+
+            selectedProductForModal = product;
+            document.getElementById('detailModalTitle').innerText = product.name;
+            document.getElementById('detailModalName').innerText = product.name;
+            document.getElementById('detailModalCategory').innerText = product.category;
+            document.getElementById('detailModalCategory').className = `badge mb-2 ${getCategoryBadgeColor(product.category)}`;
+            document.getElementById('detailModalPrice').innerText = formatRupiah(product.price);
+            document.getElementById('detailModalDescription').innerText = product.description;
+            document.getElementById('detailModalImage').src = product.image;
+
+            const modal = new bootstrap.Modal(document.getElementById('productDetailModal'));
+            modal.show();
+        }
+
+        // Tambah Produk ke Keranjang
+        function addToCart(productId) {
+            const product = productsData.find(p => p.id === productId);
+            if (!product) return;
+
+            const existingIndex = cart.findIndex(item => item.id === productId);
+            if (existingIndex > -1) {
+                cart[existingIndex].qty += 1;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+
+            updateCartUI();
+            showToast(`"${product.name}" ditambahkan ke keranjang!`);
+        }
+
+        // Hapus atau Kurangi Item dari Keranjang
+        function changeCartQty(productId, delta) {
+            const index = cart.findIndex(item => item.id === productId);
+            if (index > -1) {
+                cart[index].qty += delta;
+                if (cart[index].qty <= 0) {
+                    cart.splice(index, 1);
+                }
+            }
+            updateCartUI();
+        }
+
+        // Update Tampilan Modal Keranjang
+        function updateCartUI() {
+            // Badges
+            const totalItems = cart.reduce((acc, curr) => acc + curr.qty, 0);
+            cartCountBadge.innerText = totalItems;
+
+            cartItemsList.innerHTML = '';
+
+            if (cart.length === 0) {
+                emptyCartMessage.classList.remove('d-none');
+                btnCheckout.disabled = true;
+                cartTotalPrice.innerText = formatRupiah(0);
+            } else {
+                emptyCartMessage.classList.add('d-none');
+                btnCheckout.disabled = false;
+
+                let grandTotal = 0;
+
+                cart.forEach(item => {
+                    const subtotal = item.price * item.qty;
+                    grandTotal += subtotal;
+
+                    const cartRow = document.createElement('div');
+                    cartRow.className = 'd-flex align-items-center justify-content-between bg-light p-2 rounded-3';
+                    cartRow.innerHTML = `
+                        <div class="d-flex align-items-center gap-2">
+                            <img src="${item.image}" alt="${item.name}" class="rounded" style="width: 50px; height: 50px; object-fit: cover;">
+                            <div>
+                                <h6 class="mb-0 fw-bold small text-truncate" style="max-width: 140px;">${item.name}</h6>
+                                <span class="text-primary small fw-bold">${formatRupiah(item.price)}</span>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="btn-group btn-group-sm" role="group">
+                                <button type="button" class="btn btn-outline-secondary px-2" onclick="changeCartQty(${item.id}, -1)">-</button>
+                                <span class="btn btn-light disabled text-dark px-2 fw-bold" style="min-width: 30px;">${item.qty}</span>
+                                <button type="button" class="btn btn-outline-secondary px-2" onclick="changeCartQty(${item.id}, 1)">+</button>
+                            </div>
+                        </div>
+                    `;
+                    cartItemsList.appendChild(cartRow);
+                });
+
+                cartTotalPrice.innerText = formatRupiah(grandTotal);
+            }
+        }
+
+        // Tampilkan Toast Notifikasi
+        function showToast(msg) {
+            document.getElementById('toastMessage').innerText = msg;
+            const toastEl = document.getElementById('cartToast');
+            const toast = new bootstrap.Toast(toastEl, { delay: 2500 });
+            toast.show();
+        }
+
+        // Event Listeners
+        searchInput.addEventListener('input', filterAndRenderProducts);
+        categoryFilter.addEventListener('change', filterAndRenderProducts);
+        priceRange.addEventListener('input', filterAndRenderProducts);
+        sortSelect.addEventListener('change', filterAndRenderProducts);
+
+        // Reset Filter Event
+        btnResetFilter.addEventListener('click', () => {
+            searchInput.value = '';
+            categoryFilter.value = 'ALL';
+            priceRange.value = 10000000;
+            sortSelect.value = 'default';
+            filterAndRenderProducts();
+        });
+
+        // Add to Cart modal button
+        document.getElementById('btnAddToCartModal').addEventListener('click', () => {
+            if (selectedProductForModal) {
+                addToCart(selectedProductForModal.id);
+                // tutup modal
+                const modalEl = document.getElementById('productDetailModal');
+                const modal = bootstrap.Modal.getInstance(modalEl);
+                if (modal) modal.hide();
+            }
+        });
+
+        // Checkout button
+        btnCheckout.addEventListener('click', () => {
+            showToast("Terima kasih! Pesanan Anda berhasil diproses.");
+            cart = [];
+            updateCartUI();
+            const cartModalEl = document.getElementById('cartModal');
+            const modal = bootstrap.Modal.getInstance(cartModalEl);
+            if (modal) modal.hide();
+        });
+
+        // Initial Load
+        window.onload = function() {
+            filterAndRenderProducts();
+        };
+    </script>
+</body>
+</html>
